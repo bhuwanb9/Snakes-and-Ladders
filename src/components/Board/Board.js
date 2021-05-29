@@ -26,17 +26,17 @@ class Board extends React.Component {
                         ))
                     }
                 </div>
-                {/* <div className='snakes'>
-                    {
-                        Utils.snakesArray.map((el, index) => {
-                            return <Snake data={el} key={index}></Snake>
-                        })
-                    }
-                </div> */}
                 <div className='ladders'>
                     {
                         Utils.laddersArray.map((el, index) => {
                             return <Ladder data={el} key={index}></Ladder>
+                        })
+                    }
+                </div>
+                <div className='snakes'>
+                    {
+                        Utils.snakesArray.map((el, index) => {
+                            return <Snake data={el} key={index}></Snake>
                         })
                     }
                 </div>

@@ -23,13 +23,45 @@ export const snakesArray = [
 
 export const laddersArray = [
     {
-        start: 4,
-        end: 34
+        start: 80,
+        end: 83
+    },
+    {
+        start: 87,
+        end: 93
+    },
+    {
+        start: 70,
+        end: 90
+    },
+    {
+        start: 54,
+        end: 69
+    },
+    {
+        start: 28,
+        end: 77
+    },
+    {
+        start: 30,
+        end: 32
+    },
+    {
+        start: 7,
+        end: 29
+    },
+    {
+        start: 2,
+        end: 23
+    },
+    {
+        start: 22,
+        end: 41
     }
 ];
 
 export function generateTiles() {
-    let tilesColor = ['yellow', 'white', 'red', 'blue', 'green', 'white', 'red', 'yellow', 'green', 'blue'];
+    let tilesColor = ['yellow', 'red', 'blue', 'green', 'white', 'yellow', 'green', 'blue', 'white', 'red',];
     let boardTiles = [];
     let tilesRow = [];
     let count = 0;
@@ -56,7 +88,7 @@ export function calculateSnakeStyle(data) {
     let snakeLadderBoard = document.getElementById('board').getBoundingClientRect();
     let snakeTop = startTile.top - snakeLadderBoard.top;
     let snakeHeight = endTile.top - startTile.top + 60;
-    if (endTile.left <= startTile.left) {
+    if (endTile.left < startTile.left) {
         snakeLeft = endTile.left - snakeLadderBoard.left;
         snakeWidth = startTile.left - endTile.left + 60;
     } else {
@@ -71,11 +103,12 @@ export function calculateSnakeStyle(data) {
         backgroundImage: `url(${process.env.PUBLIC_URL + 'images/snake.png'})`
     }
     let snakePos = endTile.left < startTile.left ? 'reverse' : 'default';
-    if (snakePos === 'reverse') tileStyles.transform = 'rotateY(180deg)';
+    if (snakePos === 'default') tileStyles.transform = 'rotateY(180deg)';
     return tileStyles
 }
 
 export function calculateLadderStyle(data) {
+    let tileStyles = {};
     let ladderLeft = 0;
     let ladderWidth = 0;
     let startTile = document.getElementById(`tile-${data.start}`).getBoundingClientRect();
@@ -90,15 +123,24 @@ export function calculateLadderStyle(data) {
         ladderLeft = startTile.left - snakeLadderBoard.left;
         ladderWidth = endTile.left - startTile.left + 60;
     }
-    let tileStyles = {
+    let ladderPos = endTile.left < startTile.left ? 'reverse' : 'default';
+    let ladderHeightTile = ladderHeight / 60;
+    let ladderWidthTile = ladderWidth / 60;
+    let angle = Math.atan(ladderHeightTile / ladderWidthTile) * 180 / Math.PI;
+    tileStyles = {
         top: `${ladderTop}px`,
         left: `${ladderLeft}px`,
         height: `${ladderHeight}px`,
         width: `${ladderWidth}px`,
-        backgroundImage: `url(${process.env.PUBLIC_URL + 'images/ladder.png'})`
+        backgroundImage: `url(${process.env.PUBLIC_URL + 'images/ladder.png'})`,
+        transform: ladderPos === 'default' ? `rotate(${90 - angle}deg)` : `rotate(${90 + angle}deg)`
     }
-    let ladderPos = endTile.left < startTile.left ? 'reverse' : 'default';
-    //if (ladderPos === 'reverse') tileStyles.transform = 'rotateY(180deg)';
+    if (ladderWidth === 60) tileStyles.transform = 'rotate(0deg)';
+    if (ladderHeight === 60) {
+        tileStyles.backgroundImage = `url(${process.env.PUBLIC_URL + 'images/ladder-h.png'})`;
+        tileStyles.transform = 'rotate(180deg)';
+        tileStyles.backgroundRepeat = 'repeat-x'
+    }
     return tileStyles
 }
 
