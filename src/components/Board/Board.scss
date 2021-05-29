@@ -1,0 +1,17 @@
+.game {
+    display: flex;
+    width: 600px;
+    position: relative;
+    margin: auto;
+    .board {
+        display: flex;
+        flex-flow: row wrap-reverse;
+        border-radius: 8px;
+        .row {
+            display: flex;
+            &:nth-child(2n) {
+                flex-direction: row-reverse;
+            }
+        }
+    }
+}

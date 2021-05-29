@@ -1,0 +1,28 @@
+.tile {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 0 6px;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.red {
+        background: #df1428;
+    }
+    &.white {
+        background: #ffffff;
+    }
+    &.green {
+        background: #3cae95;
+    }
+    &.yellow {
+        background: #f1e402;
+    }
+    &.blue {
+        background: #1c89c7;
+    }
+}
